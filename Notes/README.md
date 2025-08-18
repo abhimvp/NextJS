@@ -48,3 +48,158 @@
 - Serverless Functions with next.js:
   ![alt text](Img/image_5.png)
   - In the above image the file - hello.js is actually a serverless function - what is the advantage here? -> why do we want to make sure our frontend talk to the backend.The minute we call /api/hello -> it will wake up the server & start a brand new node server & execute the code inside & shuts down the server.
+
+## App Router - Project #1: Build Your First Next App
+
+### Project Overview: What Are We Building?
+
+- We will be building an app called `Coffee Connoisseur` - this project will teach you all the fundamentals of next.js & will be diving into lot of complex topics.
+- Discover local coffee shops
+
+  - By default you will see a list of Coffee shops in your location, which are displayed in card components.
+  - Each card has a hover state and is also clickable.
+  - when we click on a card we should see details of that coffee shop.
+  - when we click on Go Back -> we should be going to home page.
+  - When we click on View stores nearby -> it will show coffee shops near your location making use of our latitude and longitude & gives us list of shops in that surrounding location.
+  - we will state changes when we click on something.
+  - even we refresh the page the information persists.
+  - we will be using Air table to store the data.
+  - this application is built with TailWindCSS as well.
+
+- Note : Next.js 15 brings a significant performance boost to your applications, making them faster and more efficient. The new version also offers a better developer experience with improved features and tools. Most importantly, we get enhanced TypeScript support, making our code more reliable and easier to maintain. By upgrading, we're future-proofing our application with the latest features and security updates.
+
+### Create Next.js App Zero Config
+
+- Go to [nextjs.org](https://nextjs.org/) official docs and let's start building an app by using what they recommend in the [documentation](https://nextjs.org/docs) and let's head over to [installation](https://nextjs.org/docs/app/getting-started/installation).
+- Before you begin, make sure your system meets the following requirements: Node.js 18.18 or later.
+
+```bash
+abhis@Tinku MINGW64 ~/Desktop/NextJS (main)
+$ node --version
+v22.14.0
+```
+
+- Struck with this [error](https://github.com/vercel/next.js/discussions/76671).
+
+  - Had to install - [Latest Microsoft Visual C++ Redistributable version](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170)
+
+- The quickest way to create a new Next.js app is using create-next-app, which sets up everything automatically for you. To create a project, run: `npx create-next-app@latest`
+
+```bash
+abhis@Tinku MINGW64 ~/Desktop/NextJS (main)
+$ npx create-next-app@latest
+√ What is your project named? ... discover-coffee-stores
+√ Would you like to use TypeScript? ... No / Yes
+√ Would you like to use ESLint? ... No / Yes
+√ Would you like to use Tailwind CSS? ... No / Yes
+√ Would you like your code inside a `src/` directory? ... No / Yes
+√ Would you like to use App Router? (recommended) ... No / Yes
+√ Would you like to use Turbopack for `next dev`? ... No / Yes
+√ Would you like to customize the import alias (`@/*` by default)? ... No / Yes
+Creating a new Next.js app in C:\Users\abhis\Desktop\NextJS\discover-coffee-stores.
+
+Using npm.
+
+Initializing project with template: app-tw
+
+
+Installing dependencies:
+- react
+- react-dom
+- next
+
+Installing devDependencies:
+- typescript
+- @types/node
+- @types/react
+- @types/react-dom
+- @tailwindcss/postcss
+- tailwindcss
+- eslint
+- eslint-config-next
+- @eslint/eslintrc
+
+
+# then run server
+abhis@Tinku MINGW64 ~/Desktop/NextJS/discover-coffee-stores (main)
+$ rm -rf node_modules/
+
+abhis@Tinku MINGW64 ~/Desktop/NextJS/discover-coffee-stores (main)
+$ rm -rf package-lock.json
+
+abhis@Tinku MINGW64 ~/Desktop/NextJS/discover-coffee-stores (main)
+$ rm -rf .next/
+
+abhis@Tinku MINGW64 ~/Desktop/NextJS/discover-coffee-stores (main)
+$ pnpm install
+Packages: +326
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 397, reused 301, downloaded 30, added 326, done
+
+dependencies:
++ lightningcss-win32-x64-msvc 1.30.1
++ next 15.4.6
++ react 19.1.0 (19.1.1 is available)
++ react-dom 19.1.0 (19.1.1 is available)
+
+devDependencies:
++ @eslint/eslintrc 3.3.1
++ @tailwindcss/postcss 4.1.12
++ @types/node 20.19.11 (24.3.0 is available)
++ @types/react 19.1.10
++ @types/react-dom 19.1.7
++ eslint 9.33.0
++ eslint-config-next 15.4.6
++ tailwindcss 4.1.12
++ typescript 5.9.2
+
+╭ Warning ───────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                            │
+│   Ignored build scripts: @tailwindcss/oxide, sharp, unrs-resolver.                         │
+│   Run "pnpm approve-builds" to pick which dependencies should be allowed to run scripts.   │
+│                                                                                            │
+╰────────────────────────────────────────────────────────────────────────────────────────────╯
+
+Done in 21.3s using pnpm v10.10.0
+
+abhis@Tinku MINGW64 ~/Desktop/NextJS/discover-coffee-stores (main)
+$ pnpm approve-builds
+√ Choose which packages to build (Press <space> to select, <a> to toggle all, <i> to invert selection) · @tailwindcss/oxide, sharp, unrs-resolver
+√ The next packages will now be built: @tailwindcss/oxide, sharp, unrs-resolver.
+Do you approve? (y/N) · true
+node_modules/.pnpm/@tailwindcss+oxide@4.1.12/node_modules/@tailwindcss/oxide: Running postinstall script, done in 387ms
+node_modules/.pnpm/sharp@0.34.3/node_modules/sharp: Running install script, done in 276ms
+node_modules/.pnpm/unrs-resolver@1.11.1/node_modules/unrs-resolver: Running postinstall script, done in 251ms
+
+abhis@Tinku MINGW64 ~/Desktop/NextJS/discover-coffee-stores (main)
+$ pnpm run dev
+
+> discover-coffee-stores@0.1.0 dev C:\Users\abhis\Desktop\NextJS\discover-coffee-stores
+> next dev
+
+   ▲ Next.js 15.4.6
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.29.186:3000
+
+ ✓ Starting...
+ ✓ Ready in 4.9s
+ ○ Compiling / ...
+ ✓ Compiled / in 12.8s (617 modules)
+ ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET / 200 in 13844ms
+ GET /_next/static/webpack/b6946bd147f66071.webpack.hot-update.json 404 in 14086ms
+ GET / 200 in 118ms
+```
+
+- Install Extensions in VSCODE:
+
+  - ES7 React/Redux/GraphQL/React-Native snippets
+  - Dracula Theme Official
+  - ESLint
+  - GitLens
+  - JavaScript and TypeScript Nightly
+  - Quokka.js
+  - Prettier - Code Formatter
+  - Tailwind CSS IntelliSense
+
+- [Next.js Setup project Walkthrough](https://github.com/abhimvp/NextJS/blob/main/discover-coffee-stores/README.md)
