@@ -139,7 +139,7 @@ node_modules/.pnpm/sharp@0.34.3/node_modules/sharp: Running install script, done
 ```
 
 - Then To run our application and see it on the browser: `pnpm run dev or pnpm dev (both of them works)` -> runs on `localhost:3000` - the page we see is from the `page.tsx` in app directory - which represents the home page.
-  ![alt text](image.png)
+  ![alt text](images/image.png)
 
 ```bash
 abhis@Tinku MINGW64 ~/Desktop/NextJS/nextjs (main)
@@ -167,3 +167,18 @@ $ pnpm run dev
   - `globals.css` - Where we can write all of our custom css or simply import tailwindcss.
   - `layout.tsx` - This is the main entry point to your application -> Anything we do here will be applied across all pages and routes. That's why in there we are importing `fonts`, `styles` & the `metadata`. change the app title with `metadata` & see the change on browser(without reloading)
   - **All the changes that you make to your app goes inside this folder/directory**.
+
+## Some more theory and practical stuff
+
+- We can write two different types of components - `client` & `server` components.
+- Every component you create `Next.js` by default turn it into a `server` component. If we add a `console.log` in our Home component in `page.tsx` -> we see this on browser and in our terminal:
+  ![alt text](images/image-1.png) ![alt text](images/image-2.png)
+  - This means that this component is being rendered on the server side - Now we know this is actually rendering on the server side.
+  - So Server components are rendered on the server and this brings us to the topic of react-server-components. these components are rendered on server and their HTML output is then sent to the client & they can access server side resources directly like databases and filesystem - this helps reduce the amount of javascript sent to the client improving performance. SSR is excellent when you need direct access to server side resources like accessing files in a file system or you want to keep sensitive information more sensitive such as access tokens & other keys safe on the server itself.
+  - If server components are better why do everything be a server component?
+    - If your component requires browser interactivity - such as button, navigating to different pages & submitting forms then you need to turn it into a client component.
+    - So what are react-client-components? -> which are rendered on client-side-user's browser -> to use them in `next.js` you must add a `use client` directive at the top of the component.
+      - let's do that by creating a new folder within the `app` folder and call it `components` folder/directory. In there create a `hello.tsx` & add the `use client` directive and a `Hello` component with a console.log message and see the client-side-component working when we import that into page.tsx
+        ![alt text](images/image-3.png) ![alt text](images/image-4.png)
+        - Now we can client-component is on terminal for once and server-side log is showing up every-time we change something on `page.tsx` & why is that happening? - because -> server components are rendered only on the server side - while client component are pre-rendered on the server side to create a static shell & then hydrate it on the client side - this means everything within the client component that doesn't require interactivity or isn't dependent on the browser is still rendered on the server - the code or parts that rely on the browser or require interactivity are left as placeholders during server-side pre-rendering.
+        - When should you allow nextjs to turn your components into server side components & when should you manually change them to client side? -> Good rule of thumb is to leave it as `server side component` until you need some browser interactivity. If you want to refer to when to use what - [refer this article which explain that](https://nextjs.org/docs/app/getting-started/server-and-client-components#when-to-use-server-and-client-components).
