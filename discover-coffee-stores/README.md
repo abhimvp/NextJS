@@ -28,3 +28,8 @@ This is a walkthrough for setting up a Next.js project with TypeScript, Tailwind
   - Ankita Kulkarni YT can be used as reference to learn in depth.
   - sm:items-start, flex, min-h-screen ..etc all these are tailwind css utilities that wraps css code.
   - Tailwind CSS is a utility-first CSS framework that provides low-level utility classes to build custom designs: `pnpm add -D tailwindcss @tailwindcss/postcss`
+
+## Let's Setup the Home App
+
+- Go to Page.tsx in app directory and remove the boiler plate code in other files as well and add the code from author [repo](https://github.com/kulkarniankita/discover-coffee-stores-latest/blob/main/app/globals.css).
+- In tailwindcss , the base, components, utilities are important things sets up styling for the entire app, so in base mentioned in global.css file , we can see the styling set for base level tags like html and inside h1 tags p tags..etc and we can set the color and text sizes to be looked on different devices , for mobile devices we can see md:text-5xl likewise.
