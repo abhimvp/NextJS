@@ -158,3 +158,12 @@ $ pnpm run dev
  ✓ Compiled / in 8.5s
  GET / 200 in 9941ms
 ```
+
+- Now let's get rid of `boilerplate` code and add this in return statement of Home component - `<h1 className="text-4xl">Welcome to Next.js</h1>` -> we can instantly see the text on browser - Which is because of `HMR (Hot Module Replacement)`.
+
+- In `app`:
+  - we have `fonts` folder -> where you can store font files - it's actually preferable to use Google fonts.
+  - `favicon.ico` - it's file that appears on your browsers tab.
+  - `globals.css` - Where we can write all of our custom css or simply import tailwindcss.
+  - `layout.tsx` - This is the main entry point to your application -> Anything we do here will be applied across all pages and routes. That's why in there we are importing `fonts`, `styles` & the `metadata`. change the app title with `metadata` & see the change on browser(without reloading)
+  - **All the changes that you make to your app goes inside this folder/directory**.
