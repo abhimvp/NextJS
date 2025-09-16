@@ -194,5 +194,15 @@ $ pnpm run dev
     - If you want to get access to this information such as `id` elsewhere & not within next.js page - you can use a client component hook - called `useParams` - that lets you read routes dynamic parameters filled in by current URL.
 
 - `Layouts` - Earlier we know that `layout.tsx` file is the main starting point of our app. Add `<h1 className="text-4xl font-bold">ROOT</h1>` above `{children}` and then go to different pages you will ROOT in all the pages, this is because `layout.tsx` acts as the parent for all of these routes. it allows you to share UI elements across multiple pages.
+
   - For example, you place features like a `navbar` and a `footer` in the `layout.tsx` and they appear on all the children routes. Saving you from having them import them on every page.
   - In next.js, a root layout is always required, but you can create additional layouts if necessary. Like you may want to have a specific layout for dashboard UI, we can do that by adding another layout.tsx in the dashboard folder.
+
+- `Route groups` - Let's say you don't want root layout to appear on dashboard routes & only show up in non-dashboard routes like `Home`, `About` & `Contact us`..etc , which means separate nav bar for the dashboard and another one for non-dashboard routes. in scenarios like this we can use `route-groups` - They allow you to organize your route segments and project structure without impacting the url path means that you can create folders but unlike nested routes they won't show up in URL - you do that by wrapping the folder name inside parenthesis.
+  - Let's create `dashboard` in parenthesis & other one will be `root` with parenthesis.
+  - Move all the non-dashboard routes into `(root)` folder and all the dashboard routes into `(dashboard)` folder.
+  - Remove the `root` from root layout. And add another `layout.tsx` in (root) group.
+  - Now each `routeGroup` has it's own `layout.tsx`.
+  - `RouteGroups` are making our code more organized. Without affecting the URL. To go to the `Home` page or `about` page - you don't have to say `/root/about` - you simply go to `localhost:3000/about`.
+  - Whenever you place a folder name within parenthesis means you're create a route group and it will not be map to a URL Path. Useful for `organizing the code - everything is cleaner now` & have separate layouts for different routeGroups which will give different UI but without affecting the URL.
+  - it's Important that (root) RouteGroup still points to the Home Page. `(root)/page.tsx` is the primary home page. this doesn't work the same for dashboard.
