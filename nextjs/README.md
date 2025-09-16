@@ -209,6 +209,7 @@ $ pnpm run dev
   - it's Important that (root) RouteGroup still points to the Home Page. `(root)/page.tsx` is the primary home page. this doesn't work the same for dashboard.
 
 - `Error Handling` - In next.js there is a special file called `error.js/ts if you use typescript` -> that catches errors and displays them on the UI, similar to how we created `layout` files for each folder , we can do the same for `error` file.
+
   - Let's throw an error in the `about` page.
   - Now when we go to `about` page - we see the error being displayed on the UI.
     ![alt text](images/image-5.png)
@@ -220,3 +221,9 @@ $ pnpm run dev
   - you can create these error files specific to different routes.
   - if you just want to have one global error - then you can do it by creating a `global-error.tsx` file in the root of the `app` folder. [code looks like this](https://nextjs.org/docs/app/getting-started/error-handling#global-errors).
   - Also note that `// Error boundaries must be Client Components`. Only the closest error file to the file takes priority, means you won't see the content both from Global and route/error.tsx.
+
+- `Loading UIs` - works very similarly to `error handling` - you want to show some kind of loading progress while data is being fetched for users with a slow internet connection - it is as simple as adding a `loading.tsx` file in the folder.
+
+  - In there you can create any kind of loader or a nice looking spinner. now as your page reloads this file reloads.
+
+- next.js also provides `parallel routes` , `intercepting routes` & `localization routes` that displays content based on the user's language. Which we can explore in next.js documentation.
