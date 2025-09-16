@@ -199,6 +199,7 @@ $ pnpm run dev
   - In next.js, a root layout is always required, but you can create additional layouts if necessary. Like you may want to have a specific layout for dashboard UI, we can do that by adding another layout.tsx in the dashboard folder.
 
 - `Route groups` - Let's say you don't want root layout to appear on dashboard routes & only show up in non-dashboard routes like `Home`, `About` & `Contact us`..etc , which means separate nav bar for the dashboard and another one for non-dashboard routes. in scenarios like this we can use `route-groups` - They allow you to organize your route segments and project structure without impacting the url path means that you can create folders but unlike nested routes they won't show up in URL - you do that by wrapping the folder name inside parenthesis.
+
   - Let's create `dashboard` in parenthesis & other one will be `root` with parenthesis.
   - Move all the non-dashboard routes into `(root)` folder and all the dashboard routes into `(dashboard)` folder.
   - Remove the `root` from root layout. And add another `layout.tsx` in (root) group.
@@ -206,3 +207,16 @@ $ pnpm run dev
   - `RouteGroups` are making our code more organized. Without affecting the URL. To go to the `Home` page or `about` page - you don't have to say `/root/about` - you simply go to `localhost:3000/about`.
   - Whenever you place a folder name within parenthesis means you're create a route group and it will not be map to a URL Path. Useful for `organizing the code - everything is cleaner now` & have separate layouts for different routeGroups which will give different UI but without affecting the URL.
   - it's Important that (root) RouteGroup still points to the Home Page. `(root)/page.tsx` is the primary home page. this doesn't work the same for dashboard.
+
+- `Error Handling` - In next.js there is a special file called `error.js/ts if you use typescript` -> that catches errors and displays them on the UI, similar to how we created `layout` files for each folder , we can do the same for `error` file.
+  - Let's throw an error in the `about` page.
+  - Now when we go to `about` page - we see the error being displayed on the UI.
+    ![alt text](images/image-5.png)
+    - you will see an error that is fine for as developers but you never want to show it to end-user. If there's an error let's show it in nice UI at least the user will feel better that way.
+    - To do that let's create a new `error.tsx` file in `(root)` folder. Add the default code provided by next.js [you can find that in here](https://nextjs.org/docs/app/getting-started/error-handling#handling-uncaught-exceptions).
+    - Now you don't see that `red pop-up anymore`.
+      ![alt text](images/image-6.png)
+    - Now you see a nice error message on the UI. and this is how you handle errors in next.js.
+  - you can create these error files specific to different routes.
+  - if you just want to have one global error - then you can do it by creating a `global-error.tsx` file in the root of the `app` folder. [code looks like this](https://nextjs.org/docs/app/getting-started/error-handling#global-errors).
+  - Also note that `// Error boundaries must be Client Components`. Only the closest error file to the file takes priority, means you won't see the content both from Global and route/error.tsx.
